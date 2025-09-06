@@ -69,7 +69,7 @@
         <td>Relevant Coursework: C# Programming, Web Development, Software Engineering, Database Management<br>GPA: 3.96/4.00</td>
       </tr>
       <tr>
-        <td>Master of Software Engineer</td>
+        <td>Master of Software Engineering</td>
         <td>Fudan University, Shanghai, China (2004 - 2006)</td>
         <td>Relevant Coursework: E-Commerce, Project Management, Advanced Computer Networks, Software Process Management, Operations Management</td>
       </tr>
