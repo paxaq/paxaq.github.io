@@ -1,0 +1,35 @@
+Jason Zhiqiang Pan
+343-202-4666, pan00074@algonquinlive.com
+https://www.linkedin.com/in/paxaq/, https://paxaq.github.io/
+
+PROFILE
+
+
+A dedicated WDIA student at Algonquin College, with a strong background in the IT industry and a passion for web development and software solutions. Academic projects and internship experiences equipped with skills in designing and maintaining web applications, collaborating in remote team settings, and adapting to new technologies.  
+
+PROGRAM-RELATED SKILLS
+Technical Skills
+Programming & Development: C#, JavaScript, HTML, CSS, Python
+Operating Systems: Linux (Advanced: Red Hat, Debian, Ubuntu), Server Administration
+Networking: Network Architecture, TCP/IP, DNS, DHCP, VPNs, Firewall Configuration, Security Protocols
+Frameworks & Platforms: .NET, Git, Docker (mention if applicable)
+Concepts: Web Design, Prototyping
+
+Leadership & Management
+Project Management & Delivery
+Team Leadership & Mentoring
+IT Strategy & Operations
+Budgeting & Financial Oversight
+Vendor & Stakeholder Management
+Process Improvement
+ 
+EDUCATION
+
+Web Development & Internet Applications Diploma	2025 - Present
+Algonquin College, Ottawa, Ontario
+Relevant Coursework: C# Programming, Web Development, Software Engineering, Database Management
+GPA: 3.96/4.00
+ 
+Master of Software Engineer	2004 - 2006
+Fudan University, Shanghai, China
+E-Commerce, Project Management, Advanced Computer Networks, Software Process Management, Operations Management
