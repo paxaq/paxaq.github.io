@@ -1,37 +1,41 @@
-## Welcome to GitHub Pages
+<img src="assets/avatar.png" alt="Jason Zhiqiang Pan" width="200"/>
 
-You can use the [editor on GitHub](https://github.com/paxaq/paxaq.github.io/edit/main/index.md) to maintain and preview the content for your website in Markdown files.
+# Jason Zhiqiang Pan
+343-202-4666 | pan00074@algonquinlive.com | [LinkedIn](https://www.linkedin.com/in/paxaq/) | [GitHub](https://paxaq.github.io/)
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+## About Me
 
-### Markdown
+A dedicated WDIA student at Algonquin College, with a strong background in the IT industry and a passion for web development and software solutions. Academic projects and internship experiences equipped with skills in designing and maintaining web applications, collaborating in remote team settings, and adapting to new technologies.
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+## Skills
 
-```markdown
-Syntax highlighted code block
+### Technical Skills
+*   **Programming & Development:** C#, JavaScript, HTML, CSS, Python
+*   **Operating Systems:** Linux (Advanced: Red Hat, Debian, Ubuntu), Server Administration
+*   **Networking:** Network Architecture, TCP/IP, DNS, DHCP, VPNs, Firewall Configuration, Security Protocols
+*   **Frameworks & Platforms:** .NET, Git, Docker
+*   **Concepts:** Web Design, Prototyping
 
-# Header 1
-## Header 2
-### Header 3
+### Leadership & Management
+*   Project Management & Delivery
+*   Team Leadership & Mentoring
+*   IT Strategy & Operations
+*   Budgeting & Financial Oversight
+*   Vendor & Stakeholder Management
+*   Process Improvement
 
-- Bulleted
-- List
+## Projects
 
-1. Numbered
-2. List
+*   **pyheadshotsclick:** [https://github.com/paxaq/pyheadshotsclick.git](https://github.com/paxaq/pyheadshotsclick.git)
+*   **pp-headshots-starter1:** [https://github.com/PixelPeers/pp-headshots-starter1.git](https://github.com/PixelPeers/pp-headshots-starter1.git)
 
-**Bold** and _Italic_ and `Code` text
+## Education
 
-[Link](url) and ![Image](src)
-```
+### Web Development & Internet Applications Diploma (2025 - Present)
+*   **Algonquin College, Ottawa, Ontario**
+*   *Relevant Coursework:* C# Programming, Web Development, Software Engineering, Database Management
+*   *GPA:* 3.96/4.00
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/paxaq/paxaq.github.io/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+### Master of Software Engineer (2004 - 2006)
+*   **Fudan University, Shanghai, China**
+*   *Relevant Coursework:* E-Commerce, Project Management, Advanced Computer Networks, Software Process Management, Operations Management
