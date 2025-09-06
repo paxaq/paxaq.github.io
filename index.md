@@ -5,7 +5,7 @@
 
   <div class="header-container">
     <h1>Jason Zhiqiang Pan</h1>
-    <p>343-202-4666 | pan00074@algonquinlive.com | [LinkedIn](https://www.linkedin.com/in/paxaq/) | [GitHub](https://paxaq.github.io/)</p>
+    <p>343-202-4666 | pan00074@algonquinlive.com | <a href="https://www.linkedin.com/in/paxaq/">LinkedIn</a> | <a href="https://paxaq.github.io/">GitHub</a></p>
   </div>
 
   <div class="content-container">
@@ -45,9 +45,15 @@
     </table>
 
     <h2>Projects</h2>
-    <ul>
-      <li><a href="https://github.com/paxaq/pyheadshotsclick.git">pyheadshotsclick</a></li>
-      <li><a href="https://github.com/PixelPeers/pp-headshots-starter1.git">pp-headshots-starter1</a></li>
+    <ul class="project-list">
+      <li>
+        <strong>pyheadshotsclick</strong><br>
+        <a href="https://github.com/paxaq/pyheadshotsclick.git">GitHub</a> | <a href="https://demo.aiheadshots.click">Demo</a>
+      </li>
+      <li>
+        <strong>pp-headshots-starter1</strong><br>
+        <a href="https://github.com/PixelPeers/pp-headshots-starter1.git">GitHub</a> | <a href="https://adonis.aiheadshots.click">Demo</a>
+      </li>
     </ul>
 
     <h2>Education</h2>

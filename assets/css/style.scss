@@ -42,6 +42,7 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: 50%;
   border: 5px solid #fff;
   box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  object-fit: cover;
 }
 
 .header-container {
@@ -81,4 +82,19 @@ h1, h2, h3, h4, h5, h6 {
 .skills-table tr:hover,
 .education-table tr:hover {
   background-color: #f1f1f1;
+}
+
+.project-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+.project-list li {
+  margin-bottom: 20px;
+  border-left: 3px solid #159957;
+  padding-left: 15px;
+}
+
+.project-list strong {
+  font-size: 1.1em;
 }
