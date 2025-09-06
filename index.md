@@ -1,11 +1,11 @@
 <div class="container">
   <div class="avatar-container">
-    <img src="assets/avatar.png" alt="Jason Zhiqiang Pan" class="avatar"/>
+    <img src="assets/avatar.png" alt="Jason" class="avatar"/>
   </div>
 
   <div class="header-container">
-    <h1>Jason Zhiqiang Pan</h1>
-    <p>343-202-4666 | pan00074@algonquinlive.com | <a href="https://www.linkedin.com/in/paxaq/">LinkedIn</a> | <a href="https://paxaq.github.io/">GitHub</a></p>
+    <h1>Jason</h1>
+    <p> pan00074@algonquinlive.com | <a href="https://www.linkedin.com/in/paxaq/">LinkedIn</a> | <a href="https://github.com/paxaq">GitHub</a></p>
   </div>
 
   <div class="content-container">
@@ -20,7 +20,7 @@
       </tr>
       <tr>
         <td>Programming & Development</td>
-        <td>C#, JavaScript, HTML, CSS, Python</td>
+        <td>C, C++, C#, JavaScript, HTML, CSS, Python, PHP</td>
       </tr>
       <tr>
         <td>Operating Systems</td>
@@ -47,11 +47,11 @@
     <h2>Projects</h2>
     <ul class="project-list">
       <li>
-        <strong>pyheadshotsclick</strong><br>
+        <strong>pyheadshotsclick - A Python AI Photo Service</strong><br>
         <a href="https://github.com/paxaq/pyheadshotsclick.git">GitHub</a> | <a href="https://demo.aiheadshots.click">Demo</a>
       </li>
       <li>
-        <strong>pp-headshots-starter1</strong><br>
+        <strong>pp-headshots-starter1 - A fully operational Headshot service</strong><br>
         <a href="https://github.com/PixelPeers/pp-headshots-starter1.git">GitHub</a> | <a href="https://adonis.aiheadshots.click">Demo</a>
       </li>
     </ul>
