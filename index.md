@@ -20,11 +20,11 @@
       </tr>
       <tr>
         <td>Programming & Development</td>
-        <td>C, C++, C#, JavaScript, HTML, CSS, Python, PHP</td>
+        <td>C, C++, C#, JavaScript, HTML, CSS, Python, PHP, SQL</td>
       </tr>
       <tr>
         <td>Operating Systems</td>
-        <td>Linux (Advanced: Red Hat, Debian, Ubuntu), Server Administration</td>
+        <td>Linux (Red Hat, Debian, Ubuntu), Server Administration</td>
       </tr>
       <tr>
         <td>Networking</td>
