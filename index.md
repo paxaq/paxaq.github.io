@@ -48,19 +48,23 @@
     <ul class="project-list">
       <li>
         <strong>pyheadshotsclick - A Python AI Photo Service</strong><br>
-        <a href="https://github.com/paxaq/pyheadshotsclick.git">GitHub</a> | <a href="https://demo.aiheadshots.click">Demo</a>
+        <a href="https://github.com/paxaq/pyheadshotsclick.git">GitHub</a> | <a href="https://demo.aiheadshots.click">Demo</a><br>
+        <img src="assets/pyheadshotsclick.png" alt="pyheadshotsclick project screenshot" style="max-width: 100%; height: auto; border: 1px solid #ddd; border-radius: 4px; margin-top: 10px;">
       </li>
       <li>
         <strong>pp-headshots-starter1 - A fully operational Headshot service</strong><br>
-        <a href="https://github.com/PixelPeers/pp-headshots-starter1.git">GitHub</a> | <a href="https://adonis.aiheadshots.click">Demo</a>
+        <a href="https://github.com/PixelPeers/pp-headshots-starter1.git">GitHub</a> | <a href="https://adonis.aiheadshots.click">Demo</a><br>
+        <img src="assets/pp-headshots-starter1.png" alt="pp-headshots-starter1 project screenshot" style="max-width: 100%; height: auto; border: 1px solid #ddd; border-radius: 4px; margin-top: 10px;">
       </li>
       <li>
         <strong>khaostreetfood-website - A Thai restaurant website</strong><br>
-        <a href="https://github.com/paxaq/khaostreetfood-website.git">GitHub</a> | <a href="https://paxaq.github.io/khaostreetfood-website">Demo</a>
+        <a href="https://github.com/paxaq/khaostreetfood-website.git">GitHub</a> | <a href="https://paxaq.github.io/khaostreetfood-website">Demo</a><br>
+        <img src="assets/khaostreetfood-website.png" alt="khaostreetfood-website project screenshot" style="max-width: 100%; height: auto; border: 1px solid #ddd; border-radius: 4px; margin-top: 10px;">
       </li>
       <li>
         <strong>UOgameinfos - A Game Guide</strong><br>
-        <a href="https://github.com/paxaq/UOgameinfos.git">GitHub</a> | <a href="https://paxaq.github.io/UOgameinfos/">Demo</a>
+        <a href="https://github.com/paxaq/UOgameinfos.git">GitHub</a> | <a href="https://paxaq.github.io/UOgameinfos/">Demo</a><br>
+        <img src="assets/UOgameinfos.png" alt="UOgameinfos project screenshot" style="max-width: 100%; height: auto; border: 1px solid #ddd; border-radius: 4px; margin-top: 10px;">
       </li>
     </ul>
 
