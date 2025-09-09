@@ -59,7 +59,7 @@
         <a href="https://github.com/paxaq/khaostreetfood-website.git">GitHub</a> | <a href="https://paxaq.github.io/khaostreetfood-website">Demo</a>
       </li>
       <li>
-        <strong>https://github.com/paxaq/UOgameinfos.git - Game Unicorn Overlord Class Guide</strong><br>
+        <strong>UOgameinfos - A Game Guide</strong><br>
         <a href="https://github.com/paxaq/UOgameinfos.git">GitHub</a> | <a href="https://paxaq.github.io/UOgameinfos/">Demo</a>
       </li>
     </ul>
