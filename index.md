@@ -54,6 +54,14 @@
         <strong>pp-headshots-starter1 - A fully operational Headshot service</strong><br>
         <a href="https://github.com/PixelPeers/pp-headshots-starter1.git">GitHub</a> | <a href="https://adonis.aiheadshots.click">Demo</a>
       </li>
+      <li>
+        <strong>khaostreetfood-website - A Thai restaurant website</strong><br>
+        <a href="https://github.com/paxaq/khaostreetfood-website.git">GitHub</a> | <a href="https://paxaq.github.io/khaostreetfood-website">Demo</a>
+      </li>
+      <li>
+        <strong>https://github.com/paxaq/UOgameinfos.git - Game Unicorn Overlord Class Guide</strong><br>
+        <a href="https://github.com/paxaq/UOgameinfos.git">GitHub</a> | <a href="https://paxaq.github.io/UOgameinfos/">Demo</a>
+      </li>
     </ul>
 
     <h2>Education</h2>
