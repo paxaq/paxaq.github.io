@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>From Source Maps to Source Leaks — What Anthropic's Claude Code Incident Teaches Every Developer</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0c0c0f;
+    --surface: #16161a;
+    --surface-raised: #1e1e24;
+    --border: #2a2a32;
+    --text: #e8e6e3;
+    --text-secondary: #9a9a9e;
+    --accent: #ff6b35;
+    --accent-dim: #ff6b3520;
+    --accent-glow: #ff6b3540;
+    --code-bg: #1a1a22;
+    --code-border: #2e2e38;
+    --link: #6eb5ff;
+    --warning-bg: #3a2210;
+    --warning-border: #7a4a1a;
+    --tag-bg: #222230;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    line-height: 1.75;
+    font-size: 17px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .noise {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    opacity: 0.03;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 200px;
+  }
+
+  .container {
+    max-width: 740px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* Hero */
+  .hero {
+    padding: 80px 0 60px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .hero .tag-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 28px;
+  }
+
+  .tag {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border-radius: 4px;
+    background: var(--tag-bg);
+    color: var(--text-secondary);
+  }
+
+  .tag.accent {
+    background: var(--accent-dim);
+    color: var(--accent);
+    border: 1px solid var(--accent-glow);
+  }
+
+  h1 {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(2.2rem, 5vw, 3.2rem);
+    line-height: 1.15;
+    font-weight: 400;
+    letter-spacing: -0.015em;
+    color: #fff;
+    margin-bottom: 20px;
+  }
+
+  h1 em {
+    color: var(--accent);
+    font-style: italic;
+  }
+
+  .hero .subtitle {
+    font-size: 18px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    max-width: 620px;
+  }
+
+  .meta {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 28px;
+    font-size: 14px;
+    color: var(--text-secondary);
+  }
+
+  .meta .dot { opacity: 0.3; }
+
+  /* Article body */
+  article {
+    padding: 56px 0 100px;
+  }
+
+  article h2 {
+    font-family: 'Instrument Serif', serif;
+    font-size: 1.8rem;
+    font-weight: 400;
+    color: #fff;
+    margin: 56px 0 20px;
+    letter-spacing: -0.01em;
+  }
+
+  article h2:first-child {
+    margin-top: 0;
+  }
+
+  article h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #ddd;
+    margin: 36px 0 12px;
+  }
+
+  article p {
+    margin-bottom: 20px;
+    color: var(--text);
+  }
+
+  article a {
+    color: var(--link);
+    text-decoration: underline;
+    text-decoration-color: #6eb5ff40;
+    text-underline-offset: 3px;
+    transition: text-decoration-color 0.2s;
+  }
+
+  article a:hover {
+    text-decoration-color: var(--link);
+  }
+
+  article strong {
+    color: #fff;
+    font-weight: 600;
+  }
+
+  /* Code blocks */
+  .code-block {
+    background: var(--code-bg);
+    border: 1px solid var(--code-border);
+    border-radius: 8px;
+    padding: 20px 24px;
+    margin: 24px 0;
+    overflow-x: auto;
+    position: relative;
+  }
+
+  .code-block .lang-label {
+    position: absolute;
+    top: 10px;
+    right: 14px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-secondary);
+    opacity: 0.5;
+  }
+
+  .code-block pre {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13.5px;
+    line-height: 1.65;
+    color: #c8c8d0;
+    white-space: pre;
+    tab-size: 2;
+  }
+
+  .code-block pre .comment { color: #5a5a6e; }
+  .code-block pre .key { color: #6eb5ff; }
+  .code-block pre .string { color: #98d89a; }
+  .code-block pre .number { color: #f0a870; }
+
+  /* Inline code */
+  code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.88em;
+    background: var(--surface-raised);
+    border: 1px solid var(--border);
+    padding: 2px 7px;
+    border-radius: 4px;
+    color: #ddd;
+  }
+
+  /* Callout */
+  .callout {
+    background: var(--warning-bg);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 8px 8px 0;
+    padding: 20px 24px;
+    margin: 28px 0;
+  }
+
+  .callout p {
+    margin-bottom: 0;
+    color: #e0c8b0;
+  }
+
+  .callout strong {
+    color: var(--accent);
+  }
+
+  /* Diagram / figure */
+  .figure {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 32px 28px;
+    margin: 32px 0;
+    text-align: center;
+  }
+
+  .figure .flow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+  }
+
+  .figure .node {
+    background: var(--surface-raised);
+    border: 1px solid var(--border);
+    padding: 10px 18px;
+    border-radius: 6px;
+    color: var(--text);
+  }
+
+  .figure .node.highlight {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: var(--accent-dim);
+  }
+
+  .figure .arrow {
+    color: var(--text-secondary);
+    font-size: 18px;
+  }
+
+  .figure .caption {
+    margin-top: 16px;
+    font-size: 13px;
+    color: var(--text-secondary);
+  }
+
+  /* Separator */
+  .sep {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 48px 0;
+  }
+
+  /* Footer */
+  .footer {
+    border-top: 1px solid var(--border);
+    padding: 40px 0;
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 14px;
+  }
+
+  /* Lists inside article */
+  article ul {
+    padding-left: 24px;
+    margin-bottom: 20px;
+  }
+  article ul li {
+    margin-bottom: 8px;
+    color: var(--text);
+  }
+  article ul li::marker {
+    color: var(--accent);
+  }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    .hero { padding: 48px 0 40px; }
+    article { padding: 40px 0 60px; }
+    .code-block { padding: 16px; }
+    .code-block pre { font-size: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="noise"></div>
+
+<div class="container">
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="tag-row">
+      <span class="tag accent">Breaking</span>
+      <span class="tag">Security</span>
+      <span class="tag">JavaScript</span>
+      <span class="tag">DevOps</span>
+    </div>
+    <h1>From Source Maps to Source Leaks: What Anthropic's Claude Code Incident Teaches <em>Every</em> Developer</h1>
+    <p class="subtitle">A single misconfigured build step just exposed 512,000 lines of proprietary code. Here's how source maps work, why they're dangerous, and what you can do about it.</p>
+    <div class="meta">
+      <span>March 31, 2026</span>
+      <span class="dot">·</span>
+      <span>10 min read</span>
+    </div>
+  </header>
+
+  <!-- ARTICLE -->
+  <article>
+
+    <h2>What Just Happened</h2>
+    <p>Earlier today, security researcher Chaofan Shou discovered something extraordinary: Anthropic had accidentally shipped a <code>.map</code> file inside version 2.1.88 of their <code>@anthropic-ai/claude-code</code> npm package. That single file contained everything needed to reconstruct the entire original TypeScript source code — nearly 1,900 files, over 512,000 lines — of one of the most commercially significant AI developer tools in existence.</p>
+    <p>Within hours, the code was mirrored to GitHub, forked over 41,500 times, and dissected across Hacker News, Twitter, and every security blog with a pulse. Anthropic pulled the affected version, but the damage was done. The source is now permanently in the wild.</p>
+    <p>The irony? This is Anthropic's <strong>third</strong> known source map leak. Versions 0.2.8 and 0.2.28 in 2025 had the same problem. And buried in the leaked code is an entire subsystem called "Undercover Mode" specifically designed to prevent internal information from leaking through git commits. They built a system to stop leaks — and then leaked the system.</p>
+
+    <hr class="sep">
+
+    <h2>Source Maps: The Innocent Debugging Tool</h2>
+    <p>To understand why this is such a big deal, you need to understand what source maps are and why every JavaScript project generates them.</p>
+    <p>Modern JavaScript and TypeScript code goes through extensive transformation before it reaches production. TypeScript gets compiled to JavaScript. Modules get bundled into single files. Code gets minified — variable names shortened, whitespace stripped, logic compressed. The result is fast and small, but completely unreadable.</p>
+    <p>Source maps exist to bridge that gap. They're JSON files that create a precise, character-by-character mapping between the transformed output and the original source code. When something crashes in production, your browser's DevTools uses the source map to show you the error in your original, readable code — not in line 1, column 48,293 of a minified bundle.</p>
+
+    <h3>The Anatomy of a <code>.map</code> File</h3>
+
+    <div class="code-block">
+      <span class="lang-label">JSON</span>
+      <pre>{
+  <span class="key">"version"</span>: <span class="number">3</span>,
+  <span class="key">"file"</span>: <span class="string">"app.min.js"</span>,
+  <span class="key">"sources"</span>: [<span class="string">"src/auth/oauth.ts"</span>, <span class="string">"src/agent/main-loop.ts"</span>],
+  <span class="key">"sourcesContent"</span>: [<span class="string">"// full original source code here..."</span>],
+  <span class="key">"names"</span>: [<span class="string">"handleAuth"</span>, <span class="string">"sessionToken"</span>, <span class="string">"agentLoop"</span>],
+  <span class="key">"mappings"</span>: <span class="string">"AAAA,SAAS,GAAG;AACZ,..."</span>
+}</pre>
+    </div>
+
+    <p>Each field plays a specific role. <code>sources</code> lists every original file path. <code>names</code> preserves the original variable and function names. <code>mappings</code> encodes the position-to-position correspondence using a compact Base64 VLQ encoding — a variable-length scheme where small numbers (common in incremental offsets) use just one character, keeping the file reasonably sized.</p>
+    <p>And then there's <code>sourcesContent</code> — the field that makes this a nuclear-grade leak vector. Many build tools populate it by default, embedding the <strong>complete, verbatim original source code</strong> directly into the JSON. If this field is present, you don't need access to the source repository. You don't need to reverse-engineer anything. You just read the file.</p>
+
+    <div class="figure">
+      <div class="flow">
+        <span class="node">TypeScript Source</span>
+        <span class="arrow">→</span>
+        <span class="node">Compiler + Bundler</span>
+        <span class="arrow">→</span>
+        <span class="node">Minified JS</span>
+        <span class="arrow">+</span>
+        <span class="node highlight">.map file</span>
+      </div>
+      <div class="caption">The source map is a byproduct of the build process — and it contains everything needed to reverse the transformation.</div>
+    </div>
+
+    <hr class="sep">
+
+    <h2>How the Browser Uses It</h2>
+    <p>The connection between a minified file and its source map is established by a single comment at the end of the generated JavaScript:</p>
+
+    <div class="code-block">
+      <span class="lang-label">JS</span>
+      <pre><span class="comment">//# sourceMappingURL=app.min.js.map</span></pre>
+    </div>
+
+    <p>When browser DevTools detect this directive, they fetch the <code>.map</code> file, decode the <code>mappings</code> string, and build a bidirectional lookup table. Every position in the minified code gets linked to the corresponding position in the original source. Breakpoints, stack traces, and error messages all resolve to the original file names, line numbers, and variable names.</p>
+    <p>Critically, this only happens when DevTools are open. Source maps have zero runtime performance impact — they're a pure debugging artifact. Which is exactly why they're so easy to forget about at deploy time.</p>
+
+    <hr class="sep">
+
+    <h2>Why Leaking a Source Map Is Leaking Your Source Code</h2>
+    <p>This isn't a theoretical risk. Here's what a source map exposes in practice:</p>
+    <ul>
+      <li><strong>Complete original source</strong> — If <code>sourcesContent</code> is populated, every line of every original file is embedded in the JSON. No reverse engineering required.</li>
+      <li><strong>Project architecture</strong> — The <code>sources</code> array reveals your entire directory structure: <code>src/agent/main-loop.ts</code>, <code>src/tools/bash/executor.ts</code>, <code>src/permissions/trust-model.ts</code>. An attacker immediately understands how your system is organized.</li>
+      <li><strong>Original identifiers</strong> — The <code>names</code> array and the mapping data restore every variable, function, and class name that the minifier stripped away. <code>H15</code> becomes <code>createRequire</code>; <code>iS6</code> becomes <code>defineProperty</code>.</li>
+      <li><strong>Internal comments and TODOs</strong> — Developer notes, hack warnings, performance annotations, and internal links that were never meant to be public.</li>
+      <li><strong>Business logic</strong> — Pricing calculations, permission models, API integration details, feature flag configurations.</li>
+    </ul>
+
+    <h3>What Was Found in the Claude Code Leak</h3>
+    <p>The community wasted no time analyzing the exposed code. Among the discoveries:</p>
+    <ul>
+      <li><strong>Internal model codenames</strong> — "Capybara" for Claude 4.6, "Fennec" for Opus 4.6, and an unreleased "Numbat" still in testing.</li>
+      <li><strong>Anti-distillation defenses</strong> — A flag called <code>ANTI_DISTILLATION_CC</code> that injects fake tool definitions into API requests to poison any competitor trying to train on recorded Claude Code traffic.</li>
+      <li><strong>KAIROS autonomous mode</strong> — A background daemon feature mentioned 150+ times in the source, including an <code>autoDream</code> process that performs "memory consolidation" while the user is idle.</li>
+      <li><strong>44 hidden feature flags</strong> — Covering features that are fully built but gated behind compile-time flags, essentially revealing Anthropic's unshipped product roadmap.</li>
+      <li><strong>Performance metrics</strong> — Internal comments noting a 29–30% false claims rate in Capybara v8, a regression from 16.7% in v4.</li>
+    </ul>
+
+    <div class="callout">
+      <p><strong>Supply-chain alert:</strong> A separate, concurrent attack on the <code>axios</code> npm package occurred hours before the leak. If you installed Claude Code via npm on March 31, 2026, between 00:21 and 03:29 UTC, check your lockfiles for <code>axios</code> versions 1.14.1 or 0.30.4. If found, treat the machine as compromised and rotate all secrets.</p>
+    </div>
+
+    <hr class="sep">
+
+    <h2>How This Keeps Happening</h2>
+    <p>The root cause is almost always the same: a gap between what the build tool generates and what the publish configuration includes.</p>
+    <p>Most bundlers — Webpack, esbuild, Vite, and notably Bun (which Claude Code uses) — generate source maps by default or with minimal configuration. The <code>.map</code> files end up in the build output directory alongside the minified JavaScript.</p>
+    <p>When you run <code>npm publish</code>, npm packages everything in the directory unless explicitly told otherwise. If your <code>.npmignore</code> doesn't exclude <code>*.map</code> files, or if your <code>package.json</code> <code>"files"</code> field is too broad, the source maps ship to the registry.</p>
+    <p>In Anthropic's case, there's an additional twist: Bun has an open bug (oven-sh/bun#28001, filed March 11) reporting that source maps are served in production mode even when they shouldn't be. Anthropic acquired Bun late last year. Their own toolchain may have exposed their own product.</p>
+
+    <hr class="sep">
+
+    <h2>How to Protect Yourself</h2>
+
+    <h3>1. Configure Your Build Tool</h3>
+    <p>Explicitly disable source map generation for production builds, or use a "hidden" mode that generates the file without embedding the <code>sourceMappingURL</code> directive.</p>
+
+    <div class="code-block">
+      <span class="lang-label">webpack.config.js</span>
+      <pre><span class="comment">// Generate .map files but don't reference them in the bundle</span>
+module.exports = {
+  devtool: <span class="string">"hidden-source-map"</span>,
+};</pre>
+    </div>
+
+    <div class="code-block">
+      <span class="lang-label">tsconfig.json</span>
+      <pre>{
+  <span class="key">"compilerOptions"</span>: {
+    <span class="key">"sourceMap"</span>: <span class="number">false</span>  <span class="comment">// or use declarationMap only</span>
+  }
+}</pre>
+    </div>
+
+    <h3>2. Exclude from Publishing</h3>
+    <p>Add explicit exclusion rules to your npm package configuration:</p>
+
+    <div class="code-block">
+      <span class="lang-label">.npmignore</span>
+      <pre>*.map
+*.js.map
+*.css.map</pre>
+    </div>
+
+    <p>Or use the allowlist approach in <code>package.json</code>, which is safer because it only includes what you explicitly specify:</p>
+
+    <div class="code-block">
+      <span class="lang-label">package.json</span>
+      <pre>{
+  <span class="key">"files"</span>: [<span class="string">"dist/**/*.js"</span>, <span class="string">"dist/**/*.d.ts"</span>, <span class="string">"README.md"</span>]
+}</pre>
+    </div>
+
+    <h3>3. Block at the Web Server</h3>
+    <p>For frontend deployments, add a server-level safeguard:</p>
+
+    <div class="code-block">
+      <span class="lang-label">nginx.conf</span>
+      <pre><span class="comment"># Return 404 for any source map request</span>
+location ~* \.map$ {
+    return <span class="number">404</span>;
+}</pre>
+    </div>
+
+    <h3>4. Validate in CI</h3>
+    <p>Add a check to your CI pipeline that fails the build if any <code>.map</code> files are present in the publish artifact:</p>
+
+    <div class="code-block">
+      <span class="lang-label">Shell</span>
+      <pre><span class="comment"># Fail if any .map files exist in the package</span>
+npm pack --dry-run 2>&amp;1 | grep -q '\.map' &amp;&amp; \
+  echo "ERROR: Source maps found in package!" &amp;&amp; exit 1</pre>
+    </div>
+
+    <h3>5. Use Source Maps Only for Error Monitoring</h3>
+    <p>Upload <code>.map</code> files to your error tracking service (Sentry, Datadog, Bugsnag) but never deploy them to public-facing servers. These services accept private source map uploads and use them server-side to symbolicate stack traces — your users and attackers never see them.</p>
+
+    <hr class="sep">
+
+    <h2>The Bigger Picture</h2>
+    <p>Source maps are a solved problem — the tooling to exclude them exists, the best practices are well-documented, and the risks are widely known. Yet this keeps happening, even to companies with billions in revenue and world-class engineering teams.</p>
+    <p>The lesson isn't that source maps are bad. They're an essential debugging tool. The lesson is that <strong>every build artifact is a potential leak vector</strong>, and the gap between "development convenience" and "production security" is exactly one forgotten configuration line.</p>
+    <p>For any team shipping JavaScript or TypeScript — whether it's a SaaS platform, a CLI tool, or a browser extension — the checklist is simple: generate source maps for development, upload them to your error tracker, and make absolutely certain they never reach your users.</p>
+    <p>Anthropic will recover. The code can be refactored, the feature flags renamed, the internal codenames rotated. But the strategic surprise — 44 unshipped features, an unreleased autonomous agent mode, internal performance benchmarks — that can never be un-leaked.</p>
+    <p>Check your <code>.npmignore</code> today. It takes thirty seconds. The alternative takes considerably longer to clean up.</p>
+
+  </article>
+
+  <footer class="footer">
+    <p>Published March 31, 2026</p>
+  </footer>
+
+</div>
+
+</body>
+</html>
