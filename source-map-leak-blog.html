@@ -114,6 +114,53 @@
 
   .meta .dot { opacity: 0.3; }
 
+  .author {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-top: 28px;
+    padding: 16px 20px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+  }
+
+  .author-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .author-name {
+    font-weight: 600;
+    color: #fff;
+    font-size: 15px;
+  }
+
+  .author-bio {
+    font-size: 13px;
+    color: var(--text-secondary);
+  }
+
+  .author-links {
+    display: flex;
+    gap: 12px;
+    flex-shrink: 0;
+  }
+
+  .author-links a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+
+  .author-links a:hover {
+    color: var(--accent);
+  }
+
   /* Article body */
   article {
     padding: 56px 0 100px;
@@ -326,6 +373,16 @@
     </div>
     <h1>From Source Maps to Source Leaks: What Anthropic's Claude Code Incident Teaches <em>Every</em> Developer</h1>
     <p class="subtitle">A single misconfigured build step just exposed 512,000 lines of proprietary code. Here's how source maps work, why they're dangerous, and what you can do about it.</p>
+    <div class="author">
+      <div class="author-info">
+        <span class="author-name">Jason Pan</span>
+        <span class="author-bio">Founder of T-Menu, an AI-powered digital menu platform for independent restaurants.</span>
+      </div>
+      <div class="author-links">
+        <a href="https://x.com/JasonPan" target="_blank" rel="noopener noreferrer">X</a>
+        <a href="https://www.linkedin.com/in/paxaq/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      </div>
+    </div>
     <div class="meta">
       <span>March 31, 2026</span>
       <span class="dot">·</span>
