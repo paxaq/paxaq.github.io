@@ -149,8 +149,7 @@
     '<span class="path">~/paxaq</span> <span class="dollar">$</span> ';
 
   function autoscroll() {
-    var doc = document.scrollingElement || document.documentElement;
-    doc.scrollTop = doc.scrollHeight;
+    body.scrollTop = body.scrollHeight;
   }
 
   function append(html) {

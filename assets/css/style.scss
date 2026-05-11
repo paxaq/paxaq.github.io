@@ -148,10 +148,28 @@ body {
   font-size: 14px;
   white-space: pre-wrap;
   word-break: break-word;
-  min-height: 70vh;
+  height: clamp(380px, 65vh, 620px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
   background:
     linear-gradient(180deg, rgba(0, 0, 0, 0.12) 0%, transparent 24px),
     $pane;
+  scrollbar-width: thin;
+  scrollbar-color: $border transparent;
+}
+
+.body::-webkit-scrollbar { width: 9px; }
+.body::-webkit-scrollbar-track { background: transparent; }
+.body::-webkit-scrollbar-thumb {
+  background: rgba(146, 131, 116, 0.35);
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+.body::-webkit-scrollbar-thumb:hover {
+  background: rgba(146, 131, 116, 0.6);
+  background-clip: padding-box;
+  border: 2px solid transparent;
 }
 
 .body :focus-visible {
