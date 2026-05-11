@@ -190,8 +190,87 @@
     });
   }
 
+  /* Visitor geo + weather (async, fills in once available) ------- */
+  var visitorData = null;
+  var geoLine = null;
+  var geoTimer = null;
+  var visitorFailed = false;
+
+  function weatherLabel(code) {
+    if (code === 0) return 'clear';
+    if (code === 1 || code === 2) return 'partly cloudy';
+    if (code === 3) return 'overcast';
+    if (code === 45 || code === 48) return 'fog';
+    if (code >= 51 && code <= 57) return 'drizzle';
+    if (code >= 61 && code <= 67) return 'rain';
+    if (code >= 71 && code <= 77) return 'snow';
+    if (code >= 80 && code <= 82) return 'showers';
+    if (code >= 85 && code <= 86) return 'snow showers';
+    if (code >= 95 && code <= 99) return 'thunderstorm';
+    return 'unknown';
+  }
+
+  function renderGeoLine() {
+    if (!geoLine || !visitorData) return;
+    try {
+      var time = new Intl.DateTimeFormat('en-US', {
+        timeZone: visitorData.tz,
+        weekday: 'short',
+        hour: '2-digit',
+        minute: '2-digit',
+        timeZoneName: 'short',
+        hour12: false
+      }).format(new Date());
+      geoLine.textContent = '# you: ' + visitorData.place +
+        ' · ' + time +
+        ' · ' + visitorData.temp + '°C, ' + weatherLabel(visitorData.code);
+    } catch (e) { /* keep last value */ }
+  }
+
+  function hideGeoLine() {
+    visitorFailed = true;
+    if (geoLine) geoLine.style.display = 'none';
+  }
+
+  function fetchVisitor() {
+    var bailout = setTimeout(hideGeoLine, 5000);
+
+    fetch('https://ipapi.co/json/')
+      .then(function (r) { return r.ok ? r.json() : Promise.reject(new Error('geo http')); })
+      .then(function (geo) {
+        if (!geo || geo.latitude == null) throw new Error('no geo');
+        var parts = [];
+        if (geo.city) parts.push(geo.city);
+        if (geo.country_code) parts.push(geo.country_code);
+        var url = 'https://api.open-meteo.com/v1/forecast?latitude=' + geo.latitude +
+          '&longitude=' + geo.longitude + '&current_weather=true&timezone=auto';
+        return fetch(url)
+          .then(function (r) { return r.json(); })
+          .then(function (wx) {
+            var cw = wx && wx.current_weather;
+            if (!cw || cw.temperature == null) throw new Error('no weather');
+            visitorData = {
+              place: parts.slice(0, 2).join(', ') || 'somewhere',
+              tz: geo.timezone || 'UTC',
+              temp: Math.round(cw.temperature),
+              code: cw.weathercode || 0
+            };
+            clearTimeout(bailout);
+            renderGeoLine();
+            if (geoTimer) clearInterval(geoTimer);
+            geoTimer = setInterval(renderGeoLine, 60000);
+          });
+      })
+      .catch(function () {
+        clearTimeout(bailout);
+        hideGeoLine();
+      });
+  }
+  fetchVisitor();
+
   var script = [
     ['comment', '# paxaq.dev — last login: 2026-05-11 — Homebrew-flavored portfolio'],
+    ['geo', ''],
     ['blank'],
     ['cmd', 'whoami'],
     ['out', 'Jason Pan <span class="dim">(paxaq)</span>'],
@@ -267,6 +346,12 @@
 
       if (kind === 'comment') {
         append('<span class="comment">' + text + '</span>\n');
+        await sleep(120);
+      } else if (kind === 'geo') {
+        if (visitorFailed) { continue; }
+        append('<span class="comment" id="geoline"># you: detecting your local weather&hellip;</span>\n');
+        geoLine = document.getElementById('geoline');
+        if (visitorData) renderGeoLine();
         await sleep(120);
       } else if (kind === 'blank') {
         append('\n');
