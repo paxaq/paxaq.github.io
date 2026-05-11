@@ -25,6 +25,112 @@
     </div>
   </div>
   <p class="hint">tip: hit <kbd>skip ▸</kbd> if streaming is too slow · this terminal isn't real, but the links are</p>
+
+  <div class="window-divider" aria-hidden="true">
+    <span class="window-divider-label">// or, the same thing, in a browser ↓</span>
+  </div>
+
+  <div class="safari">
+    <header class="safari-chrome" aria-hidden="true">
+      <div class="safari-dots">
+        <span class="dot red"></span>
+        <span class="dot yellow"></span>
+        <span class="dot green"></span>
+      </div>
+      <div class="safari-nav">
+        <button type="button" class="safari-btn" tabindex="-1">‹</button>
+        <button type="button" class="safari-btn" tabindex="-1">›</button>
+      </div>
+      <div class="safari-url">
+        <span class="safari-lock">🔒</span>
+        <span class="safari-url-text">paxaq.dev</span>
+      </div>
+      <div class="safari-actions">
+        <button type="button" class="safari-btn" tabindex="-1">↺</button>
+        <button type="button" class="safari-btn" tabindex="-1">⤴</button>
+      </div>
+    </header>
+    <div class="safari-body">
+      <article class="page">
+        <header class="page-hero">
+          <p class="page-kicker">Founder · T-Menu</p>
+          <h1>Jason Pan</h1>
+          <p class="page-lede">
+            Building <a href="https://tmenu.ai">T-Menu</a> — a digital menu &amp; QR-ordering
+            platform for restaurants. Most days I&apos;m somewhere between menu schemas,
+            kitchen-side latency, payments edge cases, and convincing an LLM to write
+            better dish descriptions than I can.
+          </p>
+          <p class="page-meta">
+            <a href="mailto:jason@tmenu.ai">jason@tmenu.ai</a>
+            <span class="dot-sep">·</span>
+            <a href="https://www.linkedin.com/in/paxaq/">LinkedIn</a>
+            <span class="dot-sep">·</span>
+            <a href="https://github.com/paxaq">GitHub</a>
+            <span class="dot-sep">·</span>
+            <a href="https://tmenu.ai">tmenu.ai</a>
+          </p>
+        </header>
+
+        <section class="page-section">
+          <h2>Stack</h2>
+          <dl class="stack">
+            <dt>Languages</dt>
+            <dd>TypeScript · JavaScript · Python · PHP <span class="aside">· Go &amp; Rust to read, not to write</span></dd>
+
+            <dt>Frameworks &amp; infra</dt>
+            <dd>Next.js · Laravel · Node · Docker · Postgres · SQLite</dd>
+
+            <dt>Network sovereignty</dt>
+            <dd>WireGuard · Tailscale · eBPF · OpenWrt <span class="aside">— weekend habit, decade-deep</span></dd>
+
+            <dt>AI workbench</dt>
+            <dd>Claude Code · MCP · agent skills · MLX · Replicate</dd>
+
+            <dt>Models on the bench</dt>
+            <dd>GPT Image 2 · Qwen TTS · seed-vc · flux-kontext <span class="aside">— try first, read the announcement later</span></dd>
+          </dl>
+        </section>
+
+        <section class="page-section">
+          <h2>What I reach for</h2>
+          <ul class="page-list">
+            <li>Local-first, self-host until it hurts — own the stack, not rent it.</li>
+            <li>Small sharp tools over god-mode autonomous agents.</li>
+            <li>Forks over rewrites — grab something running, bend it to fit.</li>
+            <li>Native over Electron, CLI over dashboard, monospace over everything else.</li>
+            <li>Try the new model before reading the announcement.</li>
+            <li>Aesthetic: quiet — restraint as a feature.</li>
+          </ul>
+        </section>
+
+        <section class="page-section">
+          <h2>Writing</h2>
+          <ul class="page-list writing-list">
+            <li><a href="https://www.qsrmagazine.com/story/why-most-restaurant-ai-investments-fail-to-deliver-roi/">Why Most Restaurant AI Investments Fail to Deliver ROI</a> <span class="aside">— QSR Magazine</span></li>
+            <li><a href="https://www.restobiz.ca/how-canadian-restaurants-are-preparing-for-ai-powered-ordering/">How Canadian Restaurants Are Preparing for AI-Powered Ordering</a> <span class="aside">— Restobiz</span></li>
+            <li><a href="https://www.linkedin.com/pulse/trillion-dollar-question-why-north-american-payments-zhiqiang-pan-kp9oe/">The Trillion-Dollar Question: Why North American Payments Are Behind Asia</a> <span class="aside">— LinkedIn</span></li>
+            <li><a href="https://tmenu.ai/2025/12/04/is-the-japanese-model-the-future-of-small-restaurants-in-north-america-2/?lang=en_US">Is the &ldquo;Japanese Model&rdquo; the Future of Small Restaurants in North America?</a> <span class="aside">— tmenu.ai</span></li>
+          </ul>
+        </section>
+
+        <section class="page-section">
+          <h2>Off-hours</h2>
+          <ul class="page-list">
+            <li>Retro gaming — Ultima Online, handheld emulation.</li>
+            <li>Homelab tinkering — VPN topologies, dashboards no one reads but me.</li>
+            <li>New models the day they drop — image, voice, multimodal.</li>
+            <li>Food, both ends — restaurant software by day, recipe rabbit holes by night.</li>
+            <li>Bilingual reading — English tech writing + Chinese indie-dev communities.</li>
+          </ul>
+        </section>
+
+        <footer class="page-footer">
+          <p>© 2026 · brewed with too much coffee · <a href="mailto:jason@tmenu.ai">say hi</a></p>
+        </footer>
+      </article>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -103,14 +209,15 @@
 
     ['cmd', 'brew list paxaq/stack'],
     ['header', 'languages'],
-    ['out', '  typescript  python  go  <span class="dim">rust*  swift*</span>'],
-    ['header', 'runtimes &amp; data'],
-    ['out', '  node  bun  postgres  sqlite  redis'],
-    ['header', 'infra'],
-    ['out', '  docker  wireguard  tailscale  caddy'],
-    ['header', 'ai tooling'],
-    ['out', '  claude-code  mcp  agent-skills  mlx'],
-    ['out', '<span class="dim">                                                  * still learning</span>'],
+    ['out', '  typescript  javascript  python  php  <span class="dim">· go &amp; rust to read, not to write</span>'],
+    ['header', 'frameworks &amp; infra'],
+    ['out', '  next.js  laravel  node  docker  postgres  sqlite'],
+    ['header', 'network sovereignty'],
+    ['out', '  wireguard  tailscale  ebpf  openwrt  <span class="dim"># weekend habit, decade-deep</span>'],
+    ['header', 'ai workbench'],
+    ['out', '  claude-code  mcp  agent-skills  mlx  replicate'],
+    ['header', 'models on the bench'],
+    ['out', '  gpt-image-2  qwen-tts  seed-vc  flux-kontext  <span class="dim"># try first, read the announcement later</span>'],
     ['blank'],
 
     ['cmd', 'cat ./writing.md'],
@@ -127,10 +234,11 @@
 
     ['cmd', 'cat ./tastes.txt'],
     ['header', 'What I reach for'],
-    ['out', '  <span class="ok">✓</span> local-first, self-hostable, boring-on-purpose'],
-    ['out', '  <span class="ok">✓</span> agents as teammates, not magic — small sharp tools'],
-    ['out', '  <span class="ok">✓</span> open source as default; forks over rewrites'],
-    ['out', '  <span class="ok">✓</span> native &gt; Electron, CLI &gt; dashboard'],
+    ['out', '  <span class="ok">✓</span> local-first, self-host until it hurts — own the stack, not rent it'],
+    ['out', '  <span class="ok">✓</span> small sharp tools &gt; god-mode autonomous agents'],
+    ['out', '  <span class="ok">✓</span> forks over rewrites — grab something running, bend it to fit'],
+    ['out', '  <span class="ok">✓</span> native &gt; Electron, CLI &gt; dashboard, monospace &gt; everything else'],
+    ['out', '  <span class="ok">✓</span> try the new model before reading the announcement'],
     ['out', '  <span class="ok">✓</span> aesthetic: quiet — restraint as a feature'],
     ['blank'],
 

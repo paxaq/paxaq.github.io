@@ -252,3 +252,308 @@ noscript a { color: $yellow; }
   background: rgba(248, 161, 62, 0.35);
   color: $fg;
 }
+
+/* ===============================================================
+   Safari mockup — the same content, in a "browser"
+   Light Homebrew-warm palette to harmonize with the dark terminal
+   =============================================================== */
+
+$paper:       #faf6ef;
+$paper-2:     #f3ede2;
+$ink:         #2a2520;
+$ink-soft:    #4a4035;
+$ink-muted:   #7a6f60;
+$rule:        rgba(42, 37, 32, 0.12);
+$rule-strong: rgba(42, 37, 32, 0.22);
+$brew-amber:  #b6651a;
+$brew-amber-hover: #8e4a0a;
+
+.window-divider {
+  text-align: center;
+  margin: 36px 0 22px;
+  font-family: "JetBrains Mono", "SF Mono", "Menlo", "Consolas", ui-monospace, monospace;
+  font-size: 12px;
+  color: $comment;
+  letter-spacing: 0.04em;
+}
+
+.window-divider-label { opacity: 0.85; }
+
+.safari {
+  background: $paper;
+  border: 1px solid rgba(0, 0, 0, 0.18);
+  border-radius: 12px;
+  box-shadow:
+    0 0 0 0.5px rgba(0, 0, 0, 0.2),
+    0 30px 60px -20px rgba(0, 0, 0, 0.55),
+    0 80px 130px -50px rgba(0, 0, 0, 0.45);
+  overflow: hidden;
+}
+
+.safari-chrome {
+  display: grid;
+  grid-template-columns: auto auto 1fr auto;
+  align-items: center;
+  gap: 12px;
+  padding: 9px 14px;
+  background:
+    linear-gradient(180deg, #f1ede5 0%, #e3dccf 100%);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  position: relative;
+}
+
+.safari-dots {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.safari-nav {
+  display: flex;
+  gap: 4px;
+}
+
+.safari-btn {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  color: rgba(42, 37, 32, 0.55);
+  font-size: 16px;
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: 6px;
+  cursor: default;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.safari-btn:hover {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.safari-url {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 5px 16px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 7px;
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.6);
+  font: 13px/1 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: $ink-soft;
+  min-width: 220px;
+  max-width: 360px;
+  justify-self: center;
+  user-select: none;
+}
+
+.safari-lock {
+  font-size: 10px;
+  opacity: 0.6;
+  filter: grayscale(1);
+}
+
+.safari-url-text { letter-spacing: 0.01em; }
+
+.safari-actions {
+  display: flex;
+  gap: 4px;
+}
+
+.safari-body {
+  background: $paper;
+  color: $ink;
+  font-family: -apple-system, BlinkMacSystemFont, "Inter", "Helvetica Neue", sans-serif;
+  font-size: 16px;
+  line-height: 1.65;
+  padding: 56px 64px 64px;
+}
+
+.page {
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.page-hero {
+  border-bottom: 1px solid $rule;
+  padding-bottom: 28px;
+  margin-bottom: 36px;
+}
+
+.page-kicker {
+  margin: 0 0 6px;
+  font-family: "JetBrains Mono", "SF Mono", "Menlo", monospace;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: $brew-amber;
+}
+
+.page h1 {
+  font-family: "Iowan Old Style", "Charter", "Source Serif Pro", Georgia, serif;
+  font-weight: 700;
+  font-size: 44px;
+  line-height: 1.05;
+  letter-spacing: -0.015em;
+  margin: 0 0 18px;
+  color: $ink;
+}
+
+.page-lede {
+  font-size: 17px;
+  line-height: 1.6;
+  color: $ink-soft;
+  margin: 0 0 22px;
+}
+
+.page-meta {
+  margin: 0;
+  font-family: "JetBrains Mono", "SF Mono", "Menlo", monospace;
+  font-size: 13px;
+  color: $ink-muted;
+}
+
+.page-meta a {
+  color: $ink-soft;
+}
+
+.page-meta .dot-sep {
+  margin: 0 6px;
+  opacity: 0.6;
+}
+
+.page-section {
+  margin-bottom: 40px;
+}
+
+.page-section:last-of-type {
+  margin-bottom: 24px;
+}
+
+.page-section h2 {
+  font-family: "Iowan Old Style", "Charter", "Source Serif Pro", Georgia, serif;
+  font-weight: 700;
+  font-size: 22px;
+  letter-spacing: -0.01em;
+  margin: 0 0 16px;
+  color: $ink;
+}
+
+.stack {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: 10px 24px;
+  margin: 0;
+  font-size: 15px;
+}
+
+.stack dt {
+  font-family: "JetBrains Mono", "SF Mono", "Menlo", monospace;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: $ink-muted;
+  padding-top: 3px;
+}
+
+.stack dd {
+  margin: 0;
+  color: $ink-soft;
+  font-family: "JetBrains Mono", "SF Mono", "Menlo", monospace;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.aside {
+  color: $ink-muted;
+  font-style: italic;
+  font-size: 0.92em;
+}
+
+.page-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.page-list li {
+  position: relative;
+  padding: 6px 0 6px 22px;
+  color: $ink-soft;
+}
+
+.page-list li::before {
+  content: "·";
+  position: absolute;
+  left: 6px;
+  top: 6px;
+  color: $brew-amber;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 1;
+}
+
+.writing-list li {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid $rule;
+}
+
+.writing-list li:last-child { border-bottom: 0; }
+
+.writing-list li::before { display: none; }
+.writing-list li { padding-left: 0; }
+
+.safari-body a {
+  color: $brew-amber;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(182, 101, 26, 0.3);
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.safari-body a:hover {
+  color: $brew-amber-hover;
+  border-bottom-color: $brew-amber-hover;
+}
+
+.page-footer {
+  margin-top: 48px;
+  padding-top: 20px;
+  border-top: 1px solid $rule;
+  font-family: "JetBrains Mono", "SF Mono", "Menlo", monospace;
+  font-size: 12px;
+  color: $ink-muted;
+  text-align: center;
+}
+
+.page-footer p { margin: 0; }
+
+@media (max-width: 640px) {
+  .safari-chrome {
+    grid-template-columns: auto 1fr auto;
+    gap: 8px;
+    padding: 8px 10px;
+  }
+  .safari-nav { display: none; }
+  .safari-url {
+    min-width: 0;
+    max-width: none;
+    padding: 4px 10px;
+    font-size: 12px;
+  }
+  .safari-actions .safari-btn:last-child { display: none; }
+
+  .safari-body {
+    padding: 32px 22px 40px;
+    font-size: 15px;
+  }
+  .page h1 { font-size: 32px; }
+  .page-section h2 { font-size: 19px; }
+  .stack {
+    grid-template-columns: 1fr;
+    gap: 4px 0;
+  }
+  .stack dt { padding-top: 12px; }
+  .stack dt:first-of-type { padding-top: 0; }
+}
