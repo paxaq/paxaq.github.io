@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Personal site for Jason Pan (paxaq), founder of T-Menu. Hosted on GitHub Pages. Jekyll builds `index.md` against the `jekyll-theme-cayman` theme; a standalone HTML blog post and a plain-text résumé sit alongside it as independently-served files.
 
-The site is intentionally a **taste portrait, not a portfolio**: hero → Currently (T-Menu) → What I reach for → Tastes → Off-hours. No project cards, no education timeline, no résumé CTA. If asked to "add a project list" or similar, push back and confirm — that direction was deliberately retired.
+The site is intentionally a **taste portrait, not a portfolio**, presented as a Homebrew-flavored fake terminal that streams its content in like an agent. Hero (window chrome + title bar) → streamed sections: whoami, Currently, brew list (skills), Writing, Tastes, Off-hours, contact. No project cards, no education timeline, no résumé CTA. If asked to "add a project list" or similar, push back and confirm — that direction was deliberately retired.
 
 ## Development Commands
 
@@ -19,22 +19,23 @@ The site is intentionally a **taste portrait, not a portfolio**: hero → Curren
 The site is intentionally tiny but mixes two rendering paths — knowing which one you're touching matters:
 
 1. **Jekyll-rendered home page** (`index.md` + `assets/css/style.scss`)
-   - `index.md` is *not* prose Markdown: it's a hand-authored HTML structure (hero, `.section-card` articles, `.highlight-list`, `.skill-badges`) wrapped in `.page-wrapper`. The `---` front matter is implicit via the theme; the ghost CTA jumps to the `#vibe` anchor inside this file.
-   - `assets/css/style.scss` `@import`s `jekyll-theme-cayman` and then overrides it heavily — gradient body background, glassmorphic cards, pill buttons, floating orbs. The Cayman look is essentially replaced; treat the imported theme as a reset, not a visual baseline.
-   - Section classes (`section-card`, `section-card.accent`, `highlight-list`, `skill-badges`) are the contract between `index.md` and the SCSS — renaming one without the other will silently break layout.
-   - The SCSS still carries unused rules for `.project-card`, `.project-list`, `.timeline`, `.skills-table`, `.education-table` from the prior portfolio layout. Leave them in place unless you're doing an intentional CSS sweep — they're dormant, not broken.
+   - `index.md` is *not* prose Markdown: it's a fake-terminal layout (`.screen` → `.terminal` → `.titlebar` + `.body`) plus an inline `<script>` that drives the streaming animation. There is no Jekyll front matter; Cayman's default layout still wraps everything.
+   - **The Cayman theme is hidden, not extended.** `style.scss` `display: none`s `.page-header` and `.site-footer` and zeroes out `.main-content`. The `@import "jekyll-theme-cayman";` line is kept to satisfy the build, but nothing from the theme is visible. Don't rely on Cayman's typography or layout primitives — they're suppressed.
+   - **Streaming animation contract.** The script in `index.md` reads from a `script` array of `[kind, text]` tuples (`comment` / `blank` / `cmd` / `header` / `out`). `typeCmd` chars-out commands with jitter; `out` lines append HTML and advance with a brief delay. Adding a new section = appending more entries to that array. The `skip` button flips `skipped = true` to fast-forward; `prefers-reduced-motion: reduce` sets the same flag at start.
+   - **Token CSS classes** are the contract between the script's HTML strings and `style.scss`: `.usr .host .path .dollar .cmd .arrow-h` (`==>`) `.arrow` (`→`) `.amber .ok .dim .comment .link .cursor`. Rename one without the other and the colors silently fall back to plain text.
+   - **`<noscript>` fallback** in `index.md` exists so JS-disabled visitors and crawlers see the contact/writing links as plain HTML. Keep it synced with the script content when adding important links.
 
 2. **Standalone HTML blog post** (`source-map-leak-blog.html`)
    - Self-contained: inline `<style>`, its own design tokens (dark theme, `--accent: #ff6b35`), its own Google Fonts import. It does **not** use the Cayman theme or `style.scss`.
-   - Edit styles inside the file's `<style>` block; do not try to share CSS with the portfolio page.
+   - Edit styles inside the file's `<style>` block; do not try to share CSS with the home page.
 
 3. **Static assets** (`assets/`)
-   - `avatar.png` is the only image referenced by the current `index.md`.
-   - `pyheadshotsclick.png`, `pp-headshots-starter1.png`, `khaostreetfood-website.png`, `UOgameinfos.png` are leftovers from the retired portfolio section. They're still served (anyone with the URL can hit them) but not linked from any page.
-   - `resume.txt` is no longer linked from `index.md` (the "Download Résumé" CTA was removed when the user stopped job-hunting). The file is still on disk and served as-is.
+   - `avatar.png` is no longer referenced — the terminal page has no avatar. Still on disk.
+   - `pyheadshotsclick.png`, `pp-headshots-starter1.png`, `khaostreetfood-website.png`, `UOgameinfos.png` are leftovers from the retired portfolio section. Still served (anyone with the URL can hit them) but not linked.
+   - `resume.txt` is no longer linked from `index.md`. Still on disk and served as-is.
 
 ## Conventions
 
-- External links in `index.md` use `target="_blank" rel="noopener noreferrer"` — preserve this when adding links.
-- Project screenshots use `loading="lazy"` and meaningful `alt` text.
-- A `@media (prefers-reduced-motion: reduce)` block at the bottom of `style.scss` neutralizes transitions; new animations should respect it.
+- External links use `target="_blank" rel="noopener"` (or `noopener noreferrer`) — preserve when adding new links.
+- All streaming animation must respect `prefers-reduced-motion: reduce` (handled by the `reduceMotion` check at the top of the script — don't add new motion without honoring it).
+- The terminal's color palette is defined as SCSS variables (`$bg, $fg, $green, $yellow, $amber, $cyan, $pink, $orange, $dim, $comment`) at the top of `style.scss`. Pick from these instead of introducing new hex values; the Homebrew/Gruvbox warm-dark feel depends on them staying coherent.
