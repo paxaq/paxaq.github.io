@@ -191,6 +191,7 @@ body {
 .arrow   { color: $orange; }                      /* → */
 .amber   { color: $amber; }
 .ok      { color: $green; }
+.quote   { color: $fg; font-style: italic; }
 
 a.link {
   color: $yellow;

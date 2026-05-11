@@ -268,6 +268,28 @@
   }
   fetchVisitor();
 
+  /* fortune — one existentialist line picked at random ----------- */
+  var quotes = [
+    { author: 'Jean-Paul Sartre',     source: 'Existentialism is a Humanism', quote: 'Existence precedes essence.' },
+    { author: 'Jean-Paul Sartre',     source: 'Existentialism is a Humanism', quote: 'Man is condemned to be free; because once thrown into the world, he is responsible for everything he does.' },
+    { author: 'Jean-Paul Sartre',     source: 'No Exit',                      quote: 'Hell is other people.' },
+    { author: 'Albert Camus',         source: 'The Myth of Sisyphus',         quote: 'One must imagine Sisyphus happy.' },
+    { author: 'Albert Camus',         source: 'L’Été',        quote: 'In the depth of winter, I finally learned that within me there lay an invincible summer.' },
+    { author: 'Albert Camus',         source: 'The Rebel',                    quote: 'I rebel; therefore we exist.' },
+    { author: 'Simone de Beauvoir',   source: 'The Second Sex',               quote: 'One is not born, but rather becomes, a woman.' },
+    { author: 'Simone de Beauvoir',   source: 'The Ethics of Ambiguity',      quote: 'To be free is not to have the power to do anything you like; it is to be able to surpass the given toward an open future.' },
+    { author: 'Friedrich Nietzsche',  source: 'Twilight of the Idols',        quote: 'He who has a why to live for can bear almost any how.' },
+    { author: 'Friedrich Nietzsche',  source: 'The Gay Science',              quote: 'God is dead. God remains dead. And we have killed him.' },
+    { author: 'Søren Kierkegaard', source: 'Journals',                   quote: 'Life can only be understood backwards; but it must be lived forwards.' },
+    { author: 'Søren Kierkegaard', source: 'The Concept of Anxiety',     quote: 'Anxiety is the dizziness of freedom.' },
+    { author: 'Viktor Frankl',        source: 'Man’s Search for Meaning', quote: 'Everything can be taken from a man but one thing: the last of the human freedoms—to choose one’s attitude in any given set of circumstances.' }
+  ];
+
+  function escapeHtml(s) {
+    return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+  var pick = quotes[Math.floor(Math.random() * quotes.length)];
+
   var script = [
     ['comment', '# paxaq.dev — last login: 2026-05-11 — Homebrew-flavored portfolio'],
     ['geo', ''],
@@ -334,6 +356,11 @@
     ['out', '<span class="arrow">→</span> <a class="link" href="https://www.linkedin.com/in/paxaq/" target="_blank" rel="noopener">linkedin.com/in/paxaq</a> <span class="dim"># LinkedIn</span>'],
     ['out', '<span class="arrow">→</span> <a class="link" href="https://github.com/paxaq" target="_blank" rel="noopener">github.com/paxaq</a>      <span class="dim"># GitHub</span>'],
     ['out', '<span class="arrow">→</span> <a class="link" href="mailto:jason@tmenu.ai">jason@tmenu.ai</a>        <span class="dim"># email</span>'],
+    ['blank'],
+
+    ['cmd', 'fortune'],
+    ['out', '<span class="quote">&ldquo;' + escapeHtml(pick.quote) + '&rdquo;</span>'],
+    ['out', '    <span class="amber">&mdash; ' + escapeHtml(pick.author) + '</span> <span class="dim">&middot; ' + escapeHtml(pick.source) + '</span>'],
     ['blank']
   ];
 
