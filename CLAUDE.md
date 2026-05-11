@@ -4,45 +4,37 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a GitHub Pages website using Jekyll with the Cayman theme. The site consists of:
-- `_config.yml`: Jekyll configuration with theme setting
-- `index.md`: Main content page in Markdown format
+Personal site for Jason Pan (paxaq), founder of T-Menu. Hosted on GitHub Pages. Jekyll builds `index.md` against the `jekyll-theme-cayman` theme; a standalone HTML blog post and a plain-text résumé sit alongside it as independently-served files.
+
+The site is intentionally a **taste portrait, not a portfolio**: hero → Currently (T-Menu) → What I reach for → Tastes → Off-hours. No project cards, no education timeline, no résumé CTA. If asked to "add a project list" or similar, push back and confirm — that direction was deliberately retired.
 
 ## Development Commands
 
-Since this is a GitHub Pages site, development is primarily done through:
-- **Local testing**: Install Jekyll locally with `gem install jekyll bundler` and run `bundle exec jekyll serve`
-- **Deployment**: Push changes to GitHub - GitHub Pages automatically builds and deploys
-- **Content editing**: Edit Markdown files directly
-- **CSS customization**: Edit `assets/css/style.scss` - uses SCSS with Cayman theme imports
-- **Image management**: Add project screenshots to `assets/` directory
+- **Local preview**: `bundle exec jekyll serve` (after `gem install jekyll bundler`). There is no `Gemfile` checked in — `bundle init && bundle add jekyll jekyll-theme-cayman` first if you need one.
+- **Deploy**: push to `main`. GitHub Pages builds and publishes automatically; there is no CI config.
+- **No build step for the blog post or résumé**: `source-map-leak-blog.html` and `resume.txt` are served as-is.
 
 ## Architecture
 
-- **Static Site Generator**: Jekyll
-- **Theme**: jekyll-theme-cayman (GitHub-provided theme) with custom SCSS overrides
-- **Content**: Markdown files with custom HTML structure for portfolio layout
-- **Styling**: Custom CSS classes for tables, project lists, and responsive layout
-- **Hosting**: GitHub Pages (automatic deployment on git push)
+The site is intentionally tiny but mixes two rendering paths — knowing which one you're touching matters:
 
-## File Structure
+1. **Jekyll-rendered home page** (`index.md` + `assets/css/style.scss`)
+   - `index.md` is *not* prose Markdown: it's a hand-authored HTML structure (hero, `.section-card` articles, `.highlight-list`, `.skill-badges`) wrapped in `.page-wrapper`. The `---` front matter is implicit via the theme; the ghost CTA jumps to the `#vibe` anchor inside this file.
+   - `assets/css/style.scss` `@import`s `jekyll-theme-cayman` and then overrides it heavily — gradient body background, glassmorphic cards, pill buttons, floating orbs. The Cayman look is essentially replaced; treat the imported theme as a reset, not a visual baseline.
+   - Section classes (`section-card`, `section-card.accent`, `highlight-list`, `skill-badges`) are the contract between `index.md` and the SCSS — renaming one without the other will silently break layout.
+   - The SCSS still carries unused rules for `.project-card`, `.project-list`, `.timeline`, `.skills-table`, `.education-table` from the prior portfolio layout. Leave them in place unless you're doing an intentional CSS sweep — they're dormant, not broken.
 
-- `_config.yml`: Contains site configuration and theme selection
-- `index.md`: Main homepage content in Markdown format with custom HTML structure
-- `assets/css/style.scss`: Custom SCSS styles that extend the Cayman theme
-- `assets/avatar.png`: Profile avatar image
-- `assets/*.png`: Project screenshot images
+2. **Standalone HTML blog post** (`source-map-leak-blog.html`)
+   - Self-contained: inline `<style>`, its own design tokens (dark theme, `--accent: #ff6b35`), its own Google Fonts import. It does **not** use the Cayman theme or `style.scss`.
+   - Edit styles inside the file's `<style>` block; do not try to share CSS with the portfolio page.
 
-## Workflow
+3. **Static assets** (`assets/`)
+   - `avatar.png` is the only image referenced by the current `index.md`.
+   - `pyheadshotsclick.png`, `pp-headshots-starter1.png`, `khaostreetfood-website.png`, `UOgameinfos.png` are leftovers from the retired portfolio section. They're still served (anyone with the URL can hit them) but not linked from any page.
+   - `resume.txt` is no longer linked from `index.md` (the "Download Résumé" CTA was removed when the user stopped job-hunting). The file is still on disk and served as-is.
 
-1. Edit Markdown files locally
-2. Commit and push to GitHub
-3. GitHub Pages automatically builds and deploys the site
-4. No local build process required for basic content changes
+## Conventions
 
-## CSS Patterns
-
-- Container layout with `.container`, `.avatar-container`, `.header-container`, `.content-container`
-- Custom table styles with `.skills-table` and `.education-table` classes
-- Project list styling with `.project-list` and bordered list items
-- Responsive design with max-width containers and centered elements
+- External links in `index.md` use `target="_blank" rel="noopener noreferrer"` — preserve this when adding links.
+- Project screenshots use `loading="lazy"` and meaningful `alt` text.
+- A `@media (prefers-reduced-motion: reduce)` block at the bottom of `style.scss` neutralizes transitions; new animations should respect it.
