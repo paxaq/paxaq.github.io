@@ -11,7 +11,7 @@
       <h1>Jason Pan</h1>
       <p class="hero-subtitle">Building the menu, the kitchen ticket, and everything between. · <a href="https://github.com/paxaq" target="_blank" rel="noopener noreferrer">GitHub</a> · <a href="https://www.linkedin.com/in/paxaq/" target="_blank" rel="noopener noreferrer">LinkedIn</a> · <a href="mailto:jason@tmenu.ai">jason@tmenu.ai</a></p>
       <div class="hero-cta">
-        <a class="button primary" href="https://github.com/t-menu" target="_blank" rel="noopener noreferrer">T-Menu on GitHub</a>
+        <a class="button primary" href="https://tmenu.ai" target="_blank" rel="noopener noreferrer">Visit tmenu.ai</a>
         <a class="button ghost" href="#vibe">What I'm into</a>
       </div>
     </div>
@@ -25,6 +25,17 @@
         <li>Shipping small, then shipping smaller.</li>
         <li>Letting AI agents do the boring half so the interesting half gets more attention.</li>
         <li>Trying to make restaurant tech feel less like restaurant tech.</li>
+      </ul>
+    </article>
+
+    <article class="section-card">
+      <h2>Writing</h2>
+      <p>Thinking out loud — mostly on restaurant tech, payments, and where AI does and doesn't earn its keep in the front-of-house.</p>
+      <ul class="highlight-list">
+        <li><a href="https://www.qsrmagazine.com/story/why-most-restaurant-ai-investments-fail-to-deliver-roi/" target="_blank" rel="noopener noreferrer">Why Most Restaurant AI Investments Fail to Deliver ROI</a> — QSR Magazine</li>
+        <li><a href="https://www.restobiz.ca/how-canadian-restaurants-are-preparing-for-ai-powered-ordering/" target="_blank" rel="noopener noreferrer">How Canadian Restaurants Are Preparing for AI-Powered Ordering</a> — Restobiz</li>
+        <li><a href="https://www.linkedin.com/pulse/trillion-dollar-question-why-north-american-payments-zhiqiang-pan-kp9oe/" target="_blank" rel="noopener noreferrer">The Trillion-Dollar Question: Why Are North American Payments So Far Behind Asia</a> — LinkedIn</li>
+        <li><a href="https://tmenu.ai/2025/12/04/is-the-japanese-model-the-future-of-small-restaurants-in-north-america-2/?lang=en_US" target="_blank" rel="noopener noreferrer">Is the &ldquo;Japanese Model&rdquo; the Future of Small Restaurants in North America?</a> — tmenu.ai</li>
       </ul>
     </article>
 
